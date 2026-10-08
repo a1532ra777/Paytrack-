@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayTrack - Conciliación de Pagos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NOTIFICACIONES EMERGENTES (TOASTS) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- OVERLAY PARA CERRAR SIDEBAR EN MÓVIL -->
+    <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+
+    <!-- 1. LANDING PAGE -->
+    <div id="landing-container" class="landing-wrapper">
+        <header class="landing-header">
+            <img src="paytrack.png" alt="PayTrack Logo" class="brand-logo-img">
+            <div class="landing-nav-btns">
+                <button id="nav-login-btn" class="btn-outline">Iniciar Sesión</button>
+                <button id="nav-register-btn" class="btn-primary">Registrarse</button>
+            </div>
+        </header>
+
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2>Control y Conciliación de Pagos en Tiempo Real</h2>
+                <p>La plataforma definitiva para conciliar transacciones mediante Pago Móvil, Punto de Venta, Efectivo y Cashea.</p>
+                <div class="hero-actions">
+                    <button id="hero-get-started" class="btn-large btn-primary">Comenzar Ahora</button>
+                    <a href="#features" class="btn-large btn-outline-light">Conocer Más</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Auditable y Seguro</p>
+            </div>
+            <div class="stat-item">
+                <h3>4+</h3>
+                <p>Métodos Integrados</p>
+            </div>
+            <div class="stat-item">
+                <h3>0%</h3>
+                <p>Mapeo Erróneo</p>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <div class="feature-card">
+                <div class="icon-box">💳</div>
+                <h3>Soporte Multi-Pago</h3>
+                <p>Registra y clasifica ventas con Pago Móvil, Cashea, Punto de Venta o Efectivo con referencias validadas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">🏷️</div>
+                <h3>Estados de Conciliación</h3>
+                <p>Visualiza en tiempo real transacciones en proceso, liquidadas o no registradas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box">👑</div>
+                <h3>Panel Administrativo</h3>
+                <p>Control total con capacidad de aprobación directa y conciliación inmediata.</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>¿Listo para optimizar la gestión de tus pagos?</h2>
+            <p>Únete a PayTrack y obtén control absoluto sobre tus flujos de dinero.</p>
+            <button id="cta-register-btn" class="btn-primary btn-large">Crear Cuenta Gratis</button>
+        </section>
+
+        <footer class="landing-footer">
+            <div class="footer-container">
+                <div class="footer-col brand-col">
+                    <img src="paytrack.png" alt="PayTrack Logo" class="footer-logo-img">
+                    <p>Solución moderna para la gestión, registro y conciliación de pagos empresariales y comerciales.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Plataforma</h4>
+                    <ul>
+                        <li><a href="#">Conciliación</a></li>
+                        <li><a href="#">Métricas</a></li>
+                        <li><a href="#">Planes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="#">Documentación</a></li>
+                        <li><a href="#">Estado del Sistema</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Términos del Servicio</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 PayTrack. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 2. LOGIN / REGISTRO -->
+    <div id="auth-container" class="auth-box hidden">
+        <button id="back-to-landing" class="btn-back">← Volver al Inicio</button>
+        <img src="paytrack.png" alt="PayTrack Logo" class="auth-logo-img">
+        
+        <form id="login-form">
+            <h3>Iniciar Sesión</h3>
+            <input type="text" id="login-user" placeholder="Usuario" required>
+            <input type="password" id="login-pass" placeholder="Contraseña" required>
+            <button type="submit" class="btn-primary">Ingresar</button>
+            <p>¿No tienes cuenta? <a href="#" id="show-register">Regístrate</a></p>
+        </form>
+
+        <form id="register-form" class="hidden">
+            <h3>Registro de Administrador</h3>
+            <input type="text" id="reg-user" placeholder="Nombre de Usuario" required>
+            <input type="password" id="reg-pass" placeholder="Contraseña" required>
+            <button type="submit" class="btn-primary">Registrar Cuenta</button>
+            <p>¿Ya tienes cuenta? <a href="#" id="show-login">Inicia Sesión</a></p>
+        </form>
+    </div>
+
+    <!-- 3. PANEL PRINCIPAL CON NAVEGACIÓN EN SIDEBAR Y MENÚ HAMBURGUESA -->
+    <div id="app-container" class="app-layout hidden">
+        
+        <header class="mobile-topbar">
+            <button id="mobile-menu-toggle" class="btn-hamburger">☰</button>
+            <img src="paytrack.png" alt="PayTrack Logo" class="mobile-logo-img">
+        </header>
+
+        <aside id="app-sidebar" class="sidebar">
+            <div class="sidebar-brand">
+                <img src="paytrack.png" alt="PayTrack Logo" class="sidebar-logo-img">
+            </div>
+
+            <div class="sidebar-user">
+                <span id="user-display"></span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" id="tab-history-btn" class="active">📊 Historial de Pagos</a>
+                <a href="#" id="tab-summary-btn">📈 Métricas & Analíticas</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn-danger btn-full">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- PESTAÑA 1: HISTORIAL DE PAGOS -->
+            <section id="view-history" class="tab-view">
+                <div class="card">
+                    <div class="card-header-flex">
+                        <h2>Historial de Conciliaciones</h2>
+                        <div class="filter-group">
+                            <button id="export-excel-btn" class="btn-secondary">📥 Exportar Excel</button>
+                            <input type="text" id="search-input" placeholder="🔍 Buscar cliente, cédula, tlf, ref..." class="search-field">
+                            <select id="filter-status">
+                                <option value="TODOS">Todos los estados</option>
+                                <option value="Pagado">Pagado</option>
+                                <option value="En Proceso">En Proceso</option>
+                                <option value="No Registrado">No Registrado</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha / Hora</th>
+                                    <th>Cliente</th>
+                                    <th>Cédula</th>
+                                    <th>Teléfono</th>
+                                    <th>Comprobante</th>
+                                    <th>Método</th>
+                                    <th>Monto</th>
+                                    <th>Referencia</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment-table-body">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PESTAÑA 2: MÉTRICAS Y GANANCIAS POR DÍA -->
+            <section id="view-summary" class="tab-view hidden">
+                <div class="card date-filter-card">
+                    <div class="card-header-flex">
+                        <h2>Filtrar Métricas por Día</h2>
+                        <div class="filter-group">
+                            <label for="stats-date-picker">Seleccionar Fecha:</label>
+                            <input type="date" id="stats-date-picker" class="search-field">
+                            <button id="reset-date-btn" class="btn-secondary">Ver Todo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TARJETAS KPI -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <h4>Monto Ganado (Filtro)</h4>
+                        <p id="kpi-total-amount">$0.00</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h4>Transacciones</h4>
+                        <p id="kpi-total-tx">0</p>
+                    </div>
+                    <div class="kpi-card">
+                        <h4>Tasa de Efectividad</h4>
+                        <p id="kpi-effective-rate">0%</p>
+                    </div>
+                    <div class="kpi-card kpi-highlight">
+                        <h4>🏆 Cliente Frecuente</h4>
+                        <p id="kpi-top-freq-client" class="kpi-text-value">Ninguno</p>
+                    </div>
+                    <div class="kpi-card kpi-highlight">
+                        <h4>💰 Mayor Comprador</h4>
+                        <p id="kpi-top-spent-client" class="kpi-text-value">Ninguno</p>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="card stats-card">
+                        <h2>Distribución por Método (%)</h2>
+                        <div class="stats-wrapper">
+                            <div class="chart-container">
+                                <svg viewBox="0 0 42 42" class="donut-chart" id="svg-donut">
+                                    <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                                    <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#e6e6e6" stroke-width="5"></circle>
+                                </svg>
+                            </div>
+                            <div class="chart-legend" id="chart-legend"></div>
+                        </div>
+                    </div>
+
+                    <div class="card stats-card">
+                        <h2>Volumen de Ventas por Método ($)</h2>
+                        <div class="bar-chart-container" id="bar-chart-container">
+                            <!-- Barras dinámicas -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- BOTÓN FLOTANTE ABAJO A LA DERECHA -->
+    <button id="open-payment-modal-btn" class="btn-floating-right btn-blue hidden">+ Nuevo Pago</button>
+
+    <!-- VENTANA EMERGENTE (MODAL PARA REGISTRO DE PAGOS) -->
+    <div id="payment-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Registrar Nuevo Pago</h2>
+                <button type="button" id="close-modal-btn" class="close-btn">✕</button>
+            </div>
+
+            <form id="payment-form">
+                <div class="client-selection-box">
+                    <div class="form-group">
+                        <label>Cliente:</label>
+                        <input type="text" id="modal-client-input" placeholder="Escribe o selecciona un cliente..." list="clients-list" required>
+                        <datalist id="clients-list">
+                            <!-- Clientes sugeridos -->
+                        </datalist>
+                    </div>
+
+                    <div class="form-row-2col">
+                        <div class="form-group">
+                            <label>Cédula de Identidad:</label>
+                            <input type="text" id="modal-client-dni" placeholder="Ej: V-12345678" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono (Pago Móvil):</label>
+                            <input type="tel" id="modal-client-phone" placeholder="Ej: 04121234567" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="payment-rows-container">
+                    <div class="payment-row">
+                        <div class="form-group">
+                            <label>Método:</label>
+                            <select class="pay-method" required>
+                                <option value="Pago Móvil">Pago Móvil</option>
+                                <option value="Punto de Venta">Punto de Venta</option>
+                                <option value="Cashea">Cashea</option>
+                                <option value="Efectivo">Efectivo</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Estado:</label>
+                            <select class="pay-status" required>
+                                <option value="Pagado">Pagado</option>
+                                <option value="En Proceso">En Proceso</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Monto ($):</label>
+                            <input type="number" class="pay-amount" step="0.01" placeholder="0.00" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Referencia:</label>
+                            <input type="text" class="pay-ref" placeholder="Ej: Ref 123456" required>
+                        </div>
+                        <div class="form-group img-upload-group">
+                            <label>Captura/Factura:</label>
+                            <input type="file" class="pay-image-input" accept="image/*" onchange="previewImage(this)">
+                            <div class="img-preview-box hidden">
+                                <img src="" alt="Previsualización" class="img-preview">
+                                <button type="button" class="btn-remove-img" onclick="removeImage(this)">✕</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-remove-row hidden">✕</button>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="add-payment-row" class="btn-secondary">+ Añadir fila</button>
+                    <button type="submit" class="btn-blue">Procesar Registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PARA EDITAR UN PAGO EXISTENTE -->
+    <div id="edit-payment-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Editar Pago</h2>
+                <button type="button" id="close-edit-modal-btn" class="close-btn">✕</button>
+            </div>
+
+            <form id="edit-payment-form">
+                <input type="hidden" id="edit-payment-id">
+                
+                <div class="form-group">
+                    <label>Cliente:</label>
+                    <input type="text" id="edit-client-input" required>
+                </div>
+
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label>Cédula de Identidad:</label>
+                        <input type="text" id="edit-client-dni" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="tel" id="edit-client-phone" required>
+                    </div>
+                </div>
+
+                <div class="form-row-2col" style="margin-top: 10px;">
+                    <div class="form-group">
+                        <label>Método:</label>
+                        <select id="edit-pay-method" required>
+                            <option value="Pago Móvil">Pago Móvil</option>
+                            <option value="Punto de Venta">Punto de Venta</option>
+                            <option value="Cashea">Cashea</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select id="edit-pay-status" required>
+                            <option value="Pagado">Pagado</option>
+                            <option value="En Proceso">En Proceso</option>
+                            <option value="No Registrado">No Registrado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row-2col" style="margin-top: 10px;">
+                    <div class="form-group">
+                        <label>Monto ($):</label>
+                        <input type="number" id="edit-pay-amount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Referencia:</label>
+                        <input type="text" id="edit-pay-ref" required>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="margin-top: 25px; justify-content: flex-end; gap: 10px;">
+                    <button type="button" id="cancel-edit-btn" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-blue">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL VISUALIZADOR DE COMPROBANTES EN TAMAÑO REAL -->
+    <div id="image-viewer-modal" class="modal-overlay hidden">
+        <div class="viewer-card">
+            <button id="close-viewer-btn" class="close-btn">✕</button>
+            <img id="viewer-full-image" src="" alt="Comprobante Completo">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
